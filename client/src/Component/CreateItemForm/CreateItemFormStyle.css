@@ -1,0 +1,26 @@
+label{
+    display: block;
+}
+
+.selling-item-form{
+    padding:0 2rem
+}
+
+.selling-form-field{
+    padding:0.4rem 0;
+}
+
+.selling-form-input{
+    width: 70%;
+    height: 1rem;
+    border-radius: 5px;
+    border:none;
+    box-shadow: 2px 2px 2px gery;
+    }
+
+@media screen  and (max-width : 800px) {
+        .selling-item-form{
+            padding:1rem;
+            /* width: 90vw; */
+        }
+}

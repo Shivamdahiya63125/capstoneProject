@@ -1,0 +1,13 @@
+.products-by-category-container{
+    margin: auto;
+    /* justify-content: center; */
+    width: 100vw;
+    padding:2rem;
+    /* background-color: red; */
+}
+
+
+.products-by-category{
+    display: flex;
+    flex-wrap: wrap;
+}

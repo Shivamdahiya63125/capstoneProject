@@ -1,0 +1,210 @@
+import { React, useEffect, useState, useContext } from "react";
+import Navigation from "../../Component/Navigation/Navigation";
+import "./PreviewProductStyle.css";
+import { useParams, useHistory, Link } from "react-router-dom";
+import { UserContext } from "../../Context/userContext";
+
+const PreviewProduct = () => {
+  const params = useParams();
+  const history = useHistory();
+  const [item, setitem] = useState();
+  const [conversation, setconversation] = useState();
+  const [newMessage, setnewMessage] = useState("");
+  const [globalUser] = useContext(UserContext);
+  const [openChatOption, setopenChatOption] = useState(false);
+
+  const getProductById = async () => {
+    const requestOptions = {
+      crossDomain: true,
+      mode: "cors",
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      Body: JSON.stringify(params.productId),
+    };
+
+    console.log(globalUser);
+    let senderId;
+    if (globalUser === null) {
+      senderId = "null";
+    } else {
+      senderId = globalUser._id;
+    }
+
+    // let userId = ` {${globalUser} !== null ? ${globalUser._id} : "" }`;
+    console.log(senderId);
+
+    // handling get request using ItemID
+    await fetch(
+      `http://localhost:8080/listing/${params.productId}/${senderId}`,
+      requestOptions
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setitem(data.item);
+        if (data.conversation.length > 0) {
+          setopenChatOption(true);
+          setconversation(data.conversation[0]);
+        }
+        // checkIfConversationAvailable();
+      });
+  };
+  const sendAMessageToSeller = async (e) => {
+    e.preventDefault();
+    if (globalUser === null) {
+      history.push("/login");
+      return;
+    }
+    const bodyObject = {
+      senderId: globalUser._id,
+      receiverId: item.addedBy._id,
+      textMessage: newMessage,
+    };
+
+    const requestOptions = {
+      crossDomain: true,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyObject),
+    };
+
+    try {
+      await fetch(
+        `http://localhost:8080/conversation/sendmessage`,
+        requestOptions
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            window.location.reload();
+          }
+          // let temp = [...currentMessages, data.response];
+          // setcurrentMessages(temp);
+          // console.log(currentMessages);
+          // setnewMessage("");
+          // console.log(data.response);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // console.log(globalUser);
+    // checkIfConversationAvailable();
+  }, []);
+
+  useEffect(() => {
+    getProductById();
+  }, []);
+
+  return (
+    <>
+      <Navigation></Navigation>
+      {item ? (
+        <div className="preview-product-container">
+          <div className="preview-product-image-container">
+            <img
+              className="preview-product-image"
+              src={require(`../../Static/itemImages/${item.itemImageString}`)}
+            ></img>
+          </div>
+
+          <div className="gap"></div>
+
+          <div className="preview-product-content">
+            <div className="preview-product-content-title">{item.title}</div>
+
+            <div className="  preview-product-content-price">{item.price}</div>
+            <div className="preview-product-content-description">
+              {item.description}
+            </div>
+
+            <div className="preview-product-content-key-value">
+              <span className="preview-product-field">Condition</span>
+              <span className="preview-product-value">{item.condition}</span>
+            </div>
+
+            <div className="preview-product-content-key-value">
+              <span className="preview-product-field">Category</span>
+              <span className="preview-product-value">{item.category}</span>
+            </div>
+
+            <hr />
+
+            <div className="preview-product-seller-information-container">
+              <span
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.3rem",
+                }}
+              >
+                Seller information
+              </span>
+
+              <div className="preview-product-seller-information">
+                <div className="preview-product-seller-photo-container">
+                  {item.addedBy.avatarString === null ? (
+                    <img
+                      className="preview-product-seller-photo"
+                      src={require(`../../Static/uploads/${item.addedBy.avatarString}`)}
+                    ></img>
+                  ) : (
+                    <img
+                      className="preview-product-seller-photo"
+                      src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
+                    ></img>
+                  )}
+                </div>
+
+                <div
+                  className="preview-product-seller-name"
+                  style={{ paddingLeft: "1rem" }}
+                >
+                  {item.addedBy.name}
+                </div>
+              </div>
+            </div>
+            {globalUser._id === item.addedBy._id ? null : openChatOption ? (
+              <button className="open-chat-button">
+                {" "}
+                <Link to={`/userprofile/messenger/`}> Open Chat </Link>
+              </button>
+            ) : (
+              <div className="preview-product-send-message-section">
+                <span> Send seller a message</span>
+                <input
+                  className="preview-product-message-input"
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => {
+                    setnewMessage(e.target.value);
+                  }}
+                ></input>
+
+                {globalUser._id === item.addedBy._id ? null : (
+                  <button
+                    className="preview-product-send-message-button"
+                    onClick={(e) => sendAMessageToSeller(e)}
+                  >
+                    {" "}
+                    Send message{" "}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        "Loading"
+      )}
+    </>
+  );
+};
+
+export default PreviewProduct;
