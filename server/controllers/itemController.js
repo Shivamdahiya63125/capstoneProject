@@ -84,27 +84,33 @@ const getItemById = async (req, res) => {
     // console.log(item.populate(item.addedBy));
     if (item) {
       // console.log(item.addedBy._id.toString());
-      console.log(req.params);
+
+      // console.log(req.params);
       if (req.params.senderId === "null") {
-        console.log("sender is null");
+        // console.log("sender is null");
         res
           .status(200)
           .json({ success: true, message: "Item Found", item: item });
       } else {
+        // checking if there is any conversation with item owner and user
         try {
+          // finding a conversation if there is any
           const c = await Conversation.find({
             members: {
               $eq: [req.params.senderId, item.addedBy._id.toString()],
             },
           });
 
-          console.log(`c : ${c}`);
-
+          // checking if the product is in favorite array or not
+          const user = await User.findOne({ _id: req.params.senderId });
+          isFav = user.favoriteProducts.includes(req.params.listingId);
+          // console.log(`isFav:${isFav}`);
           res.status(200).json({
             success: true,
             message: "Item Found",
             item: item,
             conversation: c,
+            isFav: isFav,
           });
         } catch (error) {
           res
@@ -217,12 +223,15 @@ const deleteListing = async (req, res) => {
   }
 };
 
+const isProductFavorite = async (req, res) => {};
+
 module.exports = {
   addNewListing,
   getAllListing,
   getItemById,
   getListing,
   saveItemAsDraft,
+  isProductFavorite,
   updateItem,
   deleteListing,
 };
