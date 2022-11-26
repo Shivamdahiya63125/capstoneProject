@@ -245,14 +245,14 @@ const Messenger = ({ conversationId }) => {
             </div>
           </div>
         </div>
-        <div className="chat-online-container">
+        {/* <div className="chat-online-container">
           <div className="chatOnline">
             <ChatOnline></ChatOnline>
             <ChatOnline></ChatOnline>
             <ChatOnline></ChatOnline>
             <ChatOnline></ChatOnline>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
