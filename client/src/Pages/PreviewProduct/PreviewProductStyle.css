@@ -33,6 +33,17 @@
     width: 30%;
 }
 
+.preview-product-content-header{
+    display: flex;
+    /* background-color: #1F8ACB; */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-product-save-button{
+    font-size: 1.6rem;
+}
+
 .preview-product-content-title{
     font-size: 2rem;
     font-weight: bold;

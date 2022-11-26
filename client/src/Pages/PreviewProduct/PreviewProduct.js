@@ -3,6 +3,8 @@ import Navigation from "../../Component/Navigation/Navigation";
 import "./PreviewProductStyle.css";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { UserContext } from "../../Context/userContext";
+import { MdFavorite } from "react-icons/md";
+import { GrFavorite } from "react-icons/gr";
 
 const PreviewProduct = () => {
   const params = useParams();
@@ -12,6 +14,7 @@ const PreviewProduct = () => {
   const [newMessage, setnewMessage] = useState("");
   const [globalUser] = useContext(UserContext);
   const [openChatOption, setopenChatOption] = useState(false);
+  const [isFav, setisFav] = useState(false);
 
   const getProductById = async () => {
     const requestOptions = {
@@ -47,6 +50,9 @@ const PreviewProduct = () => {
         if (data.conversation.length > 0) {
           setopenChatOption(true);
           setconversation(data.conversation[0]);
+        }
+        if (data.isFav) {
+          setisFav(true);
         }
         // checkIfConversationAvailable();
       });
@@ -94,14 +100,66 @@ const PreviewProduct = () => {
     }
   };
 
+  // adding product to fav
+  const addToFavorite = async () => {
+    const requestOptions = {
+      crossDomain: true,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: globalUser._id, productId: item._id }),
+    };
+
+    try {
+      await fetch(`http://localhost:8080/users/addfavorite`, requestOptions)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            window.location.reload();
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // check if the product is fav or not
+  const checkIfProductIsFavorite = async () => {
+    const requestOptions = {
+      crossDomain: true,
+      method: "GET",
+    };
+
+    try {
+      await fetch(
+        `http://localhost:8080/listing/isproductfavorite`,
+        requestOptions
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            window.location.reload();
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    console.log(isFav);
     // console.log(globalUser);
     // checkIfConversationAvailable();
   }, []);
 
   useEffect(() => {
     getProductById();
-  }, []);
+  }, [isFav]);
 
   return (
     <>
@@ -118,7 +176,28 @@ const PreviewProduct = () => {
           <div className="gap"></div>
 
           <div className="preview-product-content">
-            <div className="preview-product-content-title">{item.title}</div>
+            <div className="preview-product-content-header">
+              <span className="preview-product-content-title">
+                {item.title}
+              </span>
+              {isFav ? (
+                <span
+                  className="preview-product-save-button"
+                  onClick={addToFavorite}
+                >
+                  {" "}
+                  <MdFavorite></MdFavorite>{" "}
+                </span>
+              ) : (
+                <span
+                  className="preview-product-save-button"
+                  onClick={addToFavorite}
+                >
+                  {" "}
+                  <GrFavorite></GrFavorite>{" "}
+                </span>
+              )}
+            </div>
 
             <div className="  preview-product-content-price">{item.price}</div>
             <div className="preview-product-content-description">

@@ -22,6 +22,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Password can not be empty"],
     },
+
+    favoriteProducts: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "listItem",
+    },
+
     listedProducts: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "listItem",

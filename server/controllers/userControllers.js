@@ -184,6 +184,34 @@ const getUserListing = async (req, res) => {
   }
 };
 
+// POST
+// Header => userId productId
+// Find user using userId and update FavoriteProducts Array
+const addFavorite = async (req, res) => {
+  // console.log("adding Fav");
+  // console.log(req.body);
+  const { userId, productId } = req.body;
+
+  // adding item to fav array
+
+  try {
+    await User.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      //  add to set is use to add item inside an array unless
+      // the item is already exist inside the array
+      {
+        $addToSet: { favoriteProducts: productId },
+      }
+    );
+
+    res.status(500).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
@@ -191,4 +219,5 @@ module.exports = {
   uploadAvatar,
   getUserListing,
   getUserData,
+  addFavorite,
 };
