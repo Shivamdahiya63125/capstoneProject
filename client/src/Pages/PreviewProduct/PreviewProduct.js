@@ -63,6 +63,7 @@ const PreviewProduct = () => {
       history.push("/login");
       return;
     }
+
     const bodyObject = {
       senderId: globalUser._id,
       receiverId: item.addedBy._id,
@@ -86,14 +87,9 @@ const PreviewProduct = () => {
         })
         .then((data) => {
           console.log(data);
-          if (data.success) {
+          if (data.succes) {
             window.location.reload();
           }
-          // let temp = [...currentMessages, data.response];
-          // setcurrentMessages(temp);
-          // console.log(currentMessages);
-          // setnewMessage("");
-          // console.log(data.response);
         });
     } catch (error) {
       console.log(error);
@@ -262,7 +258,8 @@ const PreviewProduct = () => {
                 {" "}
                 <Link to={`/userprofile/messenger/`}> Open Chat </Link>
               </button>
-            ) : (
+            ) : !item.isDonation ? (
+              // if the item is for danation
               <div className="preview-product-send-message-section">
                 <div className="send-offer-container">
                   <span> Send seller an Offer</span>
@@ -291,6 +288,8 @@ const PreviewProduct = () => {
                   </div>
                 </div>
 
+                <hr></hr>
+
                 {/* <button>{item.price - 20}</button> */}
 
                 <span> Send seller a message</span>
@@ -311,7 +310,7 @@ const PreviewProduct = () => {
                   Send message{" "}
                 </button>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       ) : (

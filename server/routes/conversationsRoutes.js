@@ -45,14 +45,16 @@ conversationRouter.post("/sendmessage", async (req, res) => {
   });
   try {
     const savedConversation = await newConversation.save();
+
     filter = new Filter();
     const newMessage = {
-      conversationId: savedConversation.conversationId,
+      conversationId: savedConversation._id,
       sender: req.body.senderId,
       text: filter.clean(req.body.textMessage),
     };
     console.log(savedConversation);
     const message = new Message(newMessage);
+    console.log(newMessage);
     console.log(message);
     try {
       const savedMessage = await message.save();
@@ -61,8 +63,6 @@ conversationRouter.post("/sendmessage", async (req, res) => {
     } catch (error) {
       res.status(500).json({ success: falses, error: error });
     }
-
-    console.log(req.body);
   } catch (error) {
     res.status(500).json({ success: false, error: error });
   }

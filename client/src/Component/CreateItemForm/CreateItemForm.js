@@ -220,18 +220,32 @@ const CreateItemForm = (props) => {
       </div>
 
       {isDraftedItem ? (
-        <button onClick={(e) => publishDraftedItem(e)}>Publish Item</button>
+        <button
+          className="create-item-button"
+          onClick={(e) => publishDraftedItem(e)}
+        >
+          Publish Item
+        </button>
       ) : (
-        <button onClick={(e) => addItemInListing(e, false, false)}>
+        <button
+          className="create-item-button"
+          onClick={(e) => addItemInListing(e, false, false)}
+        >
           Publish Listing
         </button>
       )}
-      <button onClick={(e) => addItemInListing(e, false, true)}>
+      <button
+        className="create-item-button"
+        onClick={(e) => addItemInListing(e, false, true)}
+      >
         {" "}
         Save As a Draft{" "}
       </button>
 
-      <button onClick={(e) => addItemInListing(e, true, false)}>
+      <button
+        className="create-item-button"
+        onClick={(e) => addItemInListing(e, true, false)}
+      >
         {" "}
         Publish As Donation{" "}
       </button>

@@ -23,7 +23,7 @@ const postMessage = async (req, res) => {
 
 const getConvesation = async (req, res) => {
   console.log("params");
-  console.log(req.params);
+  console.log(req.params.conversationId);
   try {
     const conversation = await Message.find({
       conversationId: req.params.conversationId,
