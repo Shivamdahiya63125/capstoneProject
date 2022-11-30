@@ -22,10 +22,14 @@ const postMessage = async (req, res) => {
 };
 
 const getConvesation = async (req, res) => {
+  console.log("params");
+  console.log(req.params);
   try {
     const conversation = await Message.find({
       conversationId: req.params.conversationId,
     });
+    console.log("COnvo");
+    console.log(conversation);
     res.status(200).json({ succes: true, response: conversation });
   } catch (error) {
     res.status(500).json({ succes: false, message: error });

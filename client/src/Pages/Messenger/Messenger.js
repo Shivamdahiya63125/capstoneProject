@@ -31,6 +31,7 @@ const Messenger = ({ conversationId }) => {
       })
       .then((data) => {
         setconversations(data.conversation);
+        console.log(data);
         console.log(conversations);
       });
   };
@@ -84,7 +85,7 @@ const Messenger = ({ conversationId }) => {
         return response.json();
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setcurrentMessages(data.response);
         // console.log(data.response);
       });

@@ -100,6 +100,13 @@ const PreviewProduct = () => {
     }
   };
 
+  const setMessageWithPrice = (e, precentage) => {
+    let price = item.price - (precentage * item.price) / 100;
+    console.log(item.price - (precentage * Number(item.price)) / 100);
+    setnewMessage(
+      `Hey ${item.addedBy.name},I am intrested in ${precentage}% lower price at ${price}$ `
+    );
+  };
   // adding product to fav
   const addToFavorite = async () => {
     const requestOptions = {
@@ -141,7 +148,7 @@ const PreviewProduct = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           if (data.success) {
             window.location.reload();
           }
@@ -151,11 +158,7 @@ const PreviewProduct = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(isFav);
-    // console.log(globalUser);
-    // checkIfConversationAvailable();
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     getProductById();
@@ -261,6 +264,35 @@ const PreviewProduct = () => {
               </button>
             ) : (
               <div className="preview-product-send-message-section">
+                <div className="send-offer-container">
+                  <span> Send seller an Offer</span>
+                  <div>
+                    <button
+                      className="offer-button"
+                      onClick={(e) => setMessageWithPrice(e, 15)}
+                    >
+                      {" "}
+                      {item.price - (15 * item.price) / 100}$ (15% lower)
+                    </button>
+                    <button
+                      className="offer-button"
+                      onClick={(e) => setMessageWithPrice(e, 10)}
+                    >
+                      {" "}
+                      {item.price - (10 * item.price) / 100}$ (10% lower)
+                    </button>
+                    <button
+                      className="offer-button"
+                      onClick={(e) => setMessageWithPrice(e, 5)}
+                    >
+                      {" "}
+                      {item.price - (5 * item.price) / 100}$ (5% lower)
+                    </button>
+                  </div>
+                </div>
+
+                {/* <button>{item.price - 20}</button> */}
+
                 <span> Send seller a message</span>
                 <input
                   className="preview-product-message-input"
@@ -271,15 +303,13 @@ const PreviewProduct = () => {
                   }}
                 ></input>
 
-                {globalUser._id === item.addedBy._id ? null : (
-                  <button
-                    className="preview-product-send-message-button"
-                    onClick={(e) => sendAMessageToSeller(e)}
-                  >
-                    {" "}
-                    Send message{" "}
-                  </button>
-                )}
+                <button
+                  className="preview-product-send-message-button"
+                  onClick={(e) => sendAMessageToSeller(e)}
+                >
+                  {" "}
+                  Send message{" "}
+                </button>
               </div>
             )}
           </div>
