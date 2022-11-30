@@ -20,6 +20,7 @@ import ProductsByCategory from "./Pages/ProductsByCategory/ProductsByCategory";
 import SellingPage from "./Pages/SellingPage/SellingPage";
 import Messenger from "./Pages/Messenger/Messenger";
 import DraftedItems from "./Pages/DraftedItems/DraftedItems";
+import Favorites from "./Pages/Favorites/Favorites";
 
 function App() {
   const [isUserLoggedIn, setisUserLoggedIn] = useState(
@@ -82,6 +83,14 @@ function App() {
               )}
             </Route>
 
+            <Route exact path="/userprofile/favorites">
+              {isUserLoggedIn ? (
+                <Favorites></Favorites>
+              ) : (
+                <Redirect to="/login"></Redirect>
+              )}
+            </Route>
+
             <Route exact path="/cart">
               <AddToCart></AddToCart>
             </Route>
@@ -117,7 +126,7 @@ function App() {
 
             {/* edit product */}
             <Route exact path="/edit/:draftId">
-              <CreateListing draft={true}></CreateListing>
+              <CreateListing edit={true}></CreateListing>
             </Route>
           </Switch>
         </div>

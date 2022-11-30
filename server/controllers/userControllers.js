@@ -212,6 +212,22 @@ const addFavorite = async (req, res) => {
   }
 };
 
+const getFavorite = async (req, res) => {
+  console.log("getting favs");
+  console.log(req.params);
+  try {
+    const favItems = await User.findOne({ _id: req.params.userId }).populate(
+      "favoriteProducts"
+    );
+
+    res
+      .status(200)
+      .json({ success: true, response: favItems.favoriteProducts });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
@@ -219,5 +235,6 @@ module.exports = {
   uploadAvatar,
   getUserListing,
   getUserData,
+  getFavorite,
   addFavorite,
 };

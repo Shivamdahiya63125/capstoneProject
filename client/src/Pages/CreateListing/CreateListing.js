@@ -9,6 +9,8 @@ import { UserContext } from "../../Context/userContext";
 const CreateListing = (props) => {
   const params = useParams();
   const [isDraftedItem, setisDraftedItem] = useState(false);
+  const [globalUser, setGlobalUser] = useContext(UserContext);
+  const [itemImage, setitemImage] = useState(null);
 
   const [itemDetail, setitemDetail] = useState({
     title: "",
@@ -53,11 +55,9 @@ const CreateListing = (props) => {
       });
   };
 
-  const [globalUser, setGlobalUser] = useContext(UserContext);
-  const [itemImage, setitemImage] = useState(null);
-
   useEffect(() => {
     if (props.draft) getDraftedItemInfo();
+    if (props.edit) getDraftedItemInfo();
   }, []);
   return (
     <>

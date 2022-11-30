@@ -10,6 +10,7 @@ const {
   publishDraftedItem,
   getUserListing,
   addFavorite,
+  getFavorite,
 } = require("../controllers/userControllers");
 const userRouter = express.Router();
 const { protect } = require("../middleware/authMiddleware");
@@ -40,5 +41,6 @@ userRouter.get("/userData", protect, getCurrentLoggedInUser);
 userRouter.get("/getUserData/:userId", getUserData);
 userRouter.get("/:userId/getuserlisting", getUserListing);
 userRouter.post("/addfavorite", addFavorite);
+userRouter.get("/:userId/getfavorites", getFavorite);
 
 module.exports = userRouter;

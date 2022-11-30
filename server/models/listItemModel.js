@@ -25,10 +25,17 @@ const listItemSchema = mongoose.Schema({
     type: String,
     required: [true, "Condition can not be empty"],
   },
+  isDonation: {
+    type: Boolean,
+  },
   isActive: {
     type: Boolean,
   },
   isDraft: {
+    type: Boolean,
+  },
+
+  isSold: {
     type: Boolean,
   },
 

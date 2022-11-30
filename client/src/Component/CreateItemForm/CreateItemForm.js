@@ -10,7 +10,7 @@ const CreateItemForm = (props) => {
   const { itemDetail, setitemDetail, itemImage, setitemImage, isDraftedItem } =
     props;
 
-  const addItemInListing = async (e) => {
+  const addItemInListing = async (e, isDonation, isDraft) => {
     e.preventDefault();
 
     if (itemDetail.price < 0) {
@@ -21,6 +21,8 @@ const CreateItemForm = (props) => {
     // creating data for form
     const itemFormData = new FormData();
     itemFormData.append("_id", globalUser._id);
+    itemFormData.append("isDonation", isDonation);
+    itemFormData.append("isDraft", isDraft);
     itemFormData.append("itemImage", itemImage);
     itemFormData.append("itemDetail", JSON.stringify(itemDetail));
 
@@ -218,15 +220,20 @@ const CreateItemForm = (props) => {
       </div>
 
       {isDraftedItem ? (
-        <button onClick={(e) => publishDraftedItem(e)}>
-          Publish Drafed Item
-        </button>
+        <button onClick={(e) => publishDraftedItem(e)}>Publish Item</button>
       ) : (
-        <button onClick={(e) => addItemInListing(e)}>Publish Listing</button>
+        <button onClick={(e) => addItemInListing(e, false, false)}>
+          Publish Listing
+        </button>
       )}
-      <button className="save-as-draft-button" onClick={(e) => saveAsADraft(e)}>
+      <button onClick={(e) => addItemInListing(e, false, true)}>
         {" "}
         Save As a Draft{" "}
+      </button>
+
+      <button onClick={(e) => addItemInListing(e, true, false)}>
+        {" "}
+        Publish As Donation{" "}
       </button>
     </form>
   );

@@ -51,10 +51,12 @@ const Navigation = ({
           <Link to="/">
             <img
               className="nav-logo"
+              alt="logo"
               src="https://www.logolynx.com/images/logolynx/97/971a6bc2db00b7a99ad2fef0e0a1b246.png"
             ></img>
             <img
               className="nav-logo-mobile"
+              alt="logo-mobile"
               src="https://www.pngitem.com/pimgs/m/529-5295750_facebook-marketplace-01-marketplace-facebook-logo-png-transparent.png"
             ></img>
           </Link>

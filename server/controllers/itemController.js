@@ -3,29 +3,56 @@ const Conversation = require("../models/ConvesationModel");
 const User = require("../models/userModel");
 
 const addNewListing = async (req, res) => {
-  console.log("adding new listing", JSON.parse(req.body.itemDetail));
+  // console.log("adding new listing", JSON.parse(req.body.itemDetail));
 
   const itemDetail = JSON.parse(req.body.itemDetail);
-
+  const isDonation = req.body.isDonation;
+  const isDraft = req.body.isDraft;
   const { title, brand, price, category, description, tags, condition } =
     itemDetail;
 
   // if the item is already just update it
   // const isItemExist = await listItem.exists({_id : req})
 
+  // if the item is for donation it will change the price to 0
+  console.log(typeof isDonation);
+  let p;
+  console.log("dadsda");
+  console.log(isDonation === "false");
+  if (isDonation === "false") {
+    p = price;
+  } else {
+    console.log(isDonation);
+    console.log("ldoa");
+    console.log(isDonation);
+    p = "0";
+  }
+
+  // check if its a drafted item or not
+  if (isDraft) {
+    isActive = false;
+  } else {
+    isActive = true;
+  }
+  // creating list object
   const savedlistingItem = await listItem.create({
     title,
     brand,
-    price,
+    price: p,
     category,
     description,
     tags,
     condition,
     addedBy: req.body._id,
-    isActive: true,
+    isActive: isActive,
+    isDraft,
+    isSold: false,
+    isDonation: isDonation,
     itemImageString: req.file.originalname,
   });
 
+  // if item is saved we will update the listedProduct object of user, will push new item
+  // to the array
   if (savedlistingItem) {
     await User.findOneAndUpdate(
       { _id: req.body._id },
@@ -47,7 +74,7 @@ const addNewListing = async (req, res) => {
 //  FETCHING ALL THE LISTING
 const getAllListing = async (req, res) => {
   try {
-    const allListing = await listItem.find({ isActive: true });
+    const allListing = await listItem.find({ isActive: true, isSold: false });
 
     res.status(200).json({
       success: true,
@@ -225,6 +252,42 @@ const deleteListing = async (req, res) => {
 
 const isProductFavorite = async (req, res) => {};
 
+//  marking item as sold out
+const markAsSoldOut = async (req, res) => {
+  console.log(req.params);
+
+  const { _id } = req.params;
+
+  try {
+    let updatedItem = await listItem.findOneAndUpdate(
+      { _id: _id },
+      { isSold: true },
+      { new: true }
+    );
+
+    res.status(200).json({ success: true, reponse: updatedItem });
+  } catch (error) {
+    res.status(400).json({ success: false, reponse: error });
+  }
+};
+
+// repost item
+const repostItem = async (req, res) => {
+  const { _id } = req.params;
+
+  try {
+    let updatedItem = await listItem.findOneAndUpdate(
+      { _id: _id },
+      { isSold: false },
+      { new: true }
+    );
+
+    res.status(200).json({ success: true, reponse: updatedItem });
+  } catch (error) {
+    res.status(400).json({ success: false, reponse: error });
+  }
+};
+
 module.exports = {
   addNewListing,
   getAllListing,
@@ -234,4 +297,6 @@ module.exports = {
   isProductFavorite,
   updateItem,
   deleteListing,
+  markAsSoldOut,
+  repostItem,
 };

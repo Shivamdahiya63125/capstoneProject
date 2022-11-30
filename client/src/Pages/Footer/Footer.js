@@ -7,16 +7,16 @@ const Footer = () => {
   return (
     <div className="footer-container">
       <div className="social-media-link">
-        <Link>
-          <CgFacebook></CgFacebook>
+        <Link to="https://www.facebook.com/">
+          {/* <CgFacebook></CgFacebook> */}Facebook
         </Link>
 
-        <Link>
-          <CgYoutube></CgYoutube>
+        <Link to="https://www.youtube.com/">
+          {/* <CgYoutube></CgYoutube> */}Youtube
         </Link>
 
-        <Link>
-          <CgInstagram></CgInstagram>
+        <Link to="https://www.instagram.com/">
+          {/* <CgInstagram></CgInstagram> */}Instagram
         </Link>
       </div>
 

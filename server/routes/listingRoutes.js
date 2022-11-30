@@ -11,6 +11,8 @@ const {
   deleteListing,
   saveItemAsDraft,
   isProductFavorite,
+  markAsSoldOut,
+  repostItem,
 } = require("../controllers/itemController");
 
 const listingItemStorgae = multer.diskStorage({
@@ -37,4 +39,6 @@ listingRouter.post(
 );
 
 listingRouter.get("/isproductfavorite", isProductFavorite);
+listingRouter.get("/item/sold/:_id", markAsSoldOut);
+listingRouter.get("/item/repost/:_id", repostItem);
 module.exports = listingRouter;

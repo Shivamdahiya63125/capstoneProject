@@ -7,6 +7,9 @@ const UserProfileSidebar = () => {
   const [globalUser, setglobalUser] = useContext(UserContext);
   const [avatarPath, setavatarPath] = useState(null);
   const [isEditPhotoMode, setisEditPhotoMode] = useState(false);
+
+  const [fileInputState, setfileInputState] = useState("");
+  const [selectedFile, setselectedFile] = useState("");
   // const dp = require(`../../Static/uploads/${globalUser.avatarString}`);
 
   const uploadAvatar = async (e) => {
@@ -46,7 +49,7 @@ const UserProfileSidebar = () => {
 
   useEffect(() => {
     // console.log(`../../Static/uploads/${globalUser.avatarString}`);
-    console.log(globalUser.avatarString);
+    // console.log(globalUser.avatarString);
   }, []);
   return (
     <div className="userprofile-sidebar-container">
@@ -139,6 +142,10 @@ const UserProfileSidebar = () => {
           <li className="sidebar-list-item">
             {" "}
             <Link to="/userprofile/createlisting"> Create Listing </Link>
+          </li>
+          <li className="sidebar-list-item">
+            {" "}
+            <Link to="/userprofile/favorites"> Favorites</Link>
           </li>
         </ul>
       </section>

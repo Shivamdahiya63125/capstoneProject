@@ -12,19 +12,8 @@ const ProductCard = (props) => {
     itemImageString,
     description,
     condition,
+    isDonation,
   } = props.item;
-
-  const addToCart = () => {
-    if (localStorage.getItem("cartItem")) {
-      const cartItem = JSON.parse(localStorage.getItem("cartItem"));
-      console.log(cartItem);
-
-      let tempCart = [...cartItem, props.item];
-      localStorage.setItem("cartItem", JSON.stringify(tempCart));
-    } else {
-      localStorage.setItem("cartItem", JSON.stringify([props.item]));
-    }
-  };
 
   return (
     <Link to={`/${_id}`}>
@@ -32,6 +21,7 @@ const ProductCard = (props) => {
         <div className="product-image-container">
           <img
             className="product-image"
+            alt="Image"
             src={
               require(`../../Static/itemImages/${itemImageString}`)
                 ? require(`../../Static/itemImages/${itemImageString}`)
@@ -42,6 +32,8 @@ const ProductCard = (props) => {
 
         <div className="product-details">
           <span className="product-title">{title}</span>
+
+          {isDonation ? "Donation" : ""}
 
           <span className="product-sort-description">{description}</span>
 
