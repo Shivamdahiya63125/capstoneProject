@@ -167,9 +167,14 @@ const PreviewProduct = () => {
       {item ? (
         <div className="preview-product-container">
           <div className="preview-product-image-container">
-            <img
+            {/* <img
               className="preview-product-image"
               src={require(`../../Static/itemImages/${item.itemImageString}`)}
+            ></img> */}
+
+            <img
+              className="preview-product-image"
+              src={item.itemImageString}
             ></img>
           </div>
 

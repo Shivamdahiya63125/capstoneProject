@@ -19,7 +19,7 @@ const ProductCard = (props) => {
     <Link to={`/${_id}`}>
       <div className="product-card-container">
         <div className="product-image-container">
-          <img
+          {/* <img
             className="product-image"
             alt="Image"
             src={
@@ -27,6 +27,11 @@ const ProductCard = (props) => {
                 ? require(`../../Static/itemImages/${itemImageString}`)
                 : "https://www.grouphealth.ca/wp-content/uploads/2018/05/placeholder-image.png"
             }
+          ></img> */}
+          <img
+            className="product-image"
+            alt="Image"
+            src={itemImageString}
           ></img>
         </div>
 

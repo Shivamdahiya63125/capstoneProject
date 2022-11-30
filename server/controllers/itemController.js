@@ -1,6 +1,7 @@
 const listItem = require("../models/listItemModel");
 const Conversation = require("../models/ConvesationModel");
 const User = require("../models/userModel");
+const cloudinary = require("../helper/imageUpload");
 
 const addNewListing = async (req, res) => {
   // console.log("adding new listing", JSON.parse(req.body.itemDetail));
@@ -15,16 +16,10 @@ const addNewListing = async (req, res) => {
   // const isItemExist = await listItem.exists({_id : req})
 
   // if the item is for donation it will change the price to 0
-  console.log(typeof isDonation);
   let p;
-  console.log("dadsda");
-  console.log(isDonation === "false");
   if (isDonation === "false") {
     p = price;
   } else {
-    console.log(isDonation);
-    console.log("ldoa");
-    console.log(isDonation);
     p = "0";
   }
 
@@ -34,40 +29,55 @@ const addNewListing = async (req, res) => {
   } else {
     isActive = true;
   }
-  // creating list object
-  const savedlistingItem = await listItem.create({
-    title,
-    brand,
-    price: p,
-    category,
-    description,
-    tags,
-    condition,
-    addedBy: req.body._id,
-    isActive: isActive,
-    isDraft,
-    isSold: false,
-    isDonation: isDonation,
-    itemImageString: req.file.originalname,
-  });
 
-  // if item is saved we will update the listedProduct object of user, will push new item
-  // to the array
-  if (savedlistingItem) {
-    await User.findOneAndUpdate(
-      { _id: req.body._id },
-      { $push: { listedProducts: savedlistingItem._id } }
-    );
+  // getting started with cloudinary
+  try {
+    const cloudinaryImage = await cloudinary.uploader.upload(req.file.path, {
+      public_id: `${title}_product`,
+      width: 700,
+      height: 500,
+      crop: "fill",
+    });
 
-    res.status(200).json({
-      success: true,
-      message: "Item saved successfully",
+    // creating list object
+    const savedlistingItem = await listItem.create({
+      title,
+      brand,
+      price: p,
+      category,
+      description,
+      tags,
+      condition,
+      addedBy: req.body._id,
+      isActive: isActive,
+      isDraft,
+      isSold: false,
+      isDonation: isDonation,
+      itemImageString: cloudinaryImage.secure_url,
     });
-  } else {
-    res.status(400).json({
-      success: false,
-      message: "Item not saved successfully",
-    });
+
+    // if item is saved we will update the listedProduct object of user, will push new item
+    // to the array
+    if (savedlistingItem) {
+      await User.findOneAndUpdate(
+        { _id: req.body._id },
+        { $push: { listedProducts: savedlistingItem._id } }
+      );
+
+      res.status(200).json({
+        success: true,
+        message: "Item saved successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Item not saved successfully",
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, error: "Somthing went wrong with coludinary" });
   }
 };
 
@@ -203,6 +213,13 @@ const updateItem = async (req, res) => {
     `title : ${title} brand : ${brand} price : ${price} category : ${category} description : ${description} tags : ${tags} condition : ${condition}`
   );
   try {
+    const cloudinaryImage = await cloudinary.uploader.upload(req.file.path, {
+      public_id: `${title}_product`,
+      width: 700,
+      height: 500,
+      crop: "fill",
+    });
+
     const item = await listItem.find({ _id: req.body._itemId });
     // console.log(`item :${item} `);
     let itemDetail = req.body.itemDetail;
@@ -222,7 +239,7 @@ const updateItem = async (req, res) => {
             price,
             category,
             description,
-            itemImageString: req.file.originalname,
+            itemImageString: cloudinaryImage.secure_url,
             condition,
             isDraft: false,
             isActive: true,

@@ -109,9 +109,14 @@ const SellingPageItemCard = (props) => {
   return (
     <div className="selling-page-item-card-container">
       <div className="selling-page-item-card-image-container">
-        <img
+        {/* <img
           className="selling-page-item-card-image"
           src={require(`../../Static/itemImages/${itemImageString}`)}
+        ></img> */}
+
+        <img
+          className="selling-page-item-card-image"
+          src={itemImageString}
         ></img>
       </div>
 
