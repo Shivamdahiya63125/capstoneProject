@@ -24,10 +24,10 @@ const addNewListing = async (req, res) => {
   }
 
   // check if its a drafted item or not
-  if (isDraft) {
-    isActive = false;
-  } else {
+  if (isDraft === "false") {
     isActive = true;
+  } else {
+    isActive = false;
   }
 
   // getting started with cloudinary

@@ -1,7 +1,7 @@
 .footer-container{
     height: 25vh;
     width: 100vw;
-    background-color:#1F8ACB;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
     position: absolute;
     /* bottom: 0; */
     color : white;

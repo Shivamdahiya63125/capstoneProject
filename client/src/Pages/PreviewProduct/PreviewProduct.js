@@ -190,6 +190,7 @@ const PreviewProduct = () => {
                   onClick={addToFavorite}
                 >
                   {" "}
+                  {/* using react-icon for icons */}
                   <MdFavorite></MdFavorite>{" "}
                 </span>
               ) : (

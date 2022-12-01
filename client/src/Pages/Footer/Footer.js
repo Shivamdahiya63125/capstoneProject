@@ -21,12 +21,26 @@ const Footer = () => {
       </div>
 
       <div className="category-footer-links">
-        <Link className="link"> Category</Link>
-        <Link className="link"> Category</Link>
-        <Link className="link"> Category</Link>
-        <Link className="link"> Category</Link>
-        <Link className="link"> Category</Link>
-        <Link className="link"> Category</Link>
+        <Link className="link" to="/category/e  lectronics">
+          {" "}
+          Electronics
+        </Link>
+        <Link className="link" to="/category/homegood">
+          {" "}
+          Home Goods
+        </Link>
+        <Link className="link" to="/category/toys">
+          {" "}
+          Toys
+        </Link>
+        <Link className="link" to="/category/entertainment">
+          {" "}
+          Entertainment
+        </Link>
+        <Link className="link" to="/category/sports">
+          {" "}
+          Sports
+        </Link>
       </div>
 
       <div className="website-link">

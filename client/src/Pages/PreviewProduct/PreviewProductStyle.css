@@ -1,7 +1,7 @@
 .preview-product-container{
     width:80%;
     margin:auto;    
-    height: 70vh;
+    height: 87vh;
     /* background-color: grey; */
     display: flex;
     border-radius: 15px;
@@ -11,7 +11,7 @@
 animation: fadeInAnimation ease 3s;
 animation-iteration-count: 1;
 animation-fill-mode: forwards;
-    
+background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 }
 
 @keyframes fadeInAnimation {
