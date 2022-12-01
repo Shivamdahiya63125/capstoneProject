@@ -254,63 +254,66 @@ const PreviewProduct = () => {
                 </div>
               </div>
             </div>
-            {globalUser._id === item.addedBy._id ? null : openChatOption ? (
-              <button className="open-chat-button">
-                {" "}
-                <Link to={`/userprofile/messenger/`}> Open Chat </Link>
-              </button>
-            ) : !item.isDonation ? (
-              // if the item is for danation
-              <div className="preview-product-send-message-section">
-                <div className="send-offer-container">
-                  <span> Send seller an Offer</span>
-                  <div>
-                    <button
-                      className="offer-button"
-                      onClick={(e) => setMessageWithPrice(e, 15)}
-                    >
-                      {" "}
-                      {item.price - (15 * item.price) / 100}$ (15% lower)
-                    </button>
-                    <button
-                      className="offer-button"
-                      onClick={(e) => setMessageWithPrice(e, 10)}
-                    >
-                      {" "}
-                      {item.price - (10 * item.price) / 100}$ (10% lower)
-                    </button>
-                    <button
-                      className="offer-button"
-                      onClick={(e) => setMessageWithPrice(e, 5)}
-                    >
-                      {" "}
-                      {item.price - (5 * item.price) / 100}$ (5% lower)
-                    </button>
-                  </div>
-                </div>
 
-                <hr></hr>
-
-                {/* <button>{item.price - 20}</button> */}
-
-                <span> Send seller a message</span>
-                <input
-                  className="preview-product-message-input"
-                  type="text"
-                  value={newMessage}
-                  onChange={(e) => {
-                    setnewMessage(e.target.value);
-                  }}
-                ></input>
-
-                <button
-                  className="preview-product-send-message-button"
-                  onClick={(e) => sendAMessageToSeller(e)}
-                >
+            {globalUser ? (
+              globalUser._id === item.addedBy._id ? null : openChatOption ? (
+                <button className="open-chat-button">
                   {" "}
-                  Send message{" "}
+                  <Link to={`/userprofile/messenger/`}> Open Chat </Link>
                 </button>
-              </div>
+              ) : !item.isDonation ? (
+                // if the item is for danation
+                <div className="preview-product-send-message-section">
+                  <div className="send-offer-container">
+                    <span> Send seller an Offer</span>
+                    <div>
+                      <button
+                        className="offer-button"
+                        onClick={(e) => setMessageWithPrice(e, 15)}
+                      >
+                        {" "}
+                        {item.price - (15 * item.price) / 100}$ (15% lower)
+                      </button>
+                      <button
+                        className="offer-button"
+                        onClick={(e) => setMessageWithPrice(e, 10)}
+                      >
+                        {" "}
+                        {item.price - (10 * item.price) / 100}$ (10% lower)
+                      </button>
+                      <button
+                        className="offer-button"
+                        onClick={(e) => setMessageWithPrice(e, 5)}
+                      >
+                        {" "}
+                        {item.price - (5 * item.price) / 100}$ (5% lower)
+                      </button>
+                    </div>
+                  </div>
+
+                  <hr></hr>
+
+                  {/* <button>{item.price - 20}</button> */}
+
+                  <span> Send seller a message</span>
+                  <input
+                    className="preview-product-message-input"
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => {
+                      setnewMessage(e.target.value);
+                    }}
+                  ></input>
+
+                  <button
+                    className="preview-product-send-message-button"
+                    onClick={(e) => sendAMessageToSeller(e)}
+                  >
+                    {" "}
+                    Send message{" "}
+                  </button>
+                </div>
+              ) : null
             ) : null}
           </div>
         </div>
