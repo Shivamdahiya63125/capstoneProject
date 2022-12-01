@@ -80,9 +80,14 @@ const Navigation = ({
               {globalUser.avatarString ? (
                 <div className="nav-profile-pic-container">
                   <Link to="/userprofile">
-                    <img
+                    {/* <img
                       className="nav-profile-pic"
                       src={require(`../../Static/uploads/${globalUser.avatarString}`)}
+                    ></img> */}
+
+                    <img
+                      className="nav-profile-pic"
+                      src={globalUser.avatarString}
                     ></img>
                   </Link>
                 </div>
@@ -119,7 +124,7 @@ const Navigation = ({
             globalUser.avatarString ? (
               <img
                 className="user-profile-mobile"
-                src={require(`../../Static/uploads/${globalUser.avatarString}`)}
+                src={globalUser.avatarString}
               ></img>
             ) : null
           ) : null}

@@ -40,13 +40,17 @@ const Conversation = ({ conversation, currentUser }) => {
     <>
       {user ? (
         <div className="conversation-container">
-          <img
+          {/* <img
             className="conversation-profile-pic"
             src={
               user.avatarString
                 ? require(`../../Static/uploads/${user.avatarString}`)
                 : "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png"
             }
+          ></img> */}
+          <img
+            className="conversation-profile-pic"
+            src={user.avatarString}
           ></img>
 
           <span className="conversation-user-name">{user.name}</span>

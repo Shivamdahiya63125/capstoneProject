@@ -6,7 +6,7 @@ const Message = ({ own, message, otherUser, globalUser }) => {
   return (
     <div className={own ? "message-container own" : "message-container"}>
       <div className={own ? "message-top own-message-top" : "message-top"}>
-        <img
+        {/* <img
           className="message-image"
           src={
             own
@@ -17,6 +17,10 @@ const Message = ({ own, message, otherUser, globalUser }) => {
               ? require(`../../Static/uploads/${otherUser.avatarString}`)
               : "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png"
           }
+        ></img> */}
+        <img
+          className="message-image"
+          src={own ? globalUser.avatarString : otherUser.avatarString}
         ></img>
 
         <p className={own ? "message-text own-text" : "message-text"}>

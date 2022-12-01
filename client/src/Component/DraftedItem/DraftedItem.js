@@ -77,14 +77,16 @@ const DraftedItem = (props) => {
 
           <div className="seller-information">
             <div className="seller-image-container">
-              <img
+              {/* <img
                 className="seller-image"
                 src={
                   globalUser.avatarString
                     ? require(`../../Static/uploads/${globalUser.avatarString}`)
                     : " https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
                 }
-              ></img>
+              ></img> */}
+
+              <img className="seller-image" src={globalUser.avatarString}></img>
             </div>
             <div className="seller-details weighted">{globalUser.name}</div>
           </div>

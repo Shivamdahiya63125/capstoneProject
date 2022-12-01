@@ -173,6 +173,7 @@ const PreviewProduct = () => {
 
             <img
               className="preview-product-image"
+              alt="product-image"
               src={item.itemImageString}
             ></img>
           </div>
@@ -236,11 +237,13 @@ const PreviewProduct = () => {
                   {item.addedBy.avatarString === null ? (
                     <img
                       className="preview-product-seller-photo"
+                      alt="seller-photo"
                       src={require(`../../Static/uploads/${item.addedBy.avatarString}`)}
                     ></img>
                   ) : (
                     <img
                       className="preview-product-seller-photo"
+                      alt="seller-photo"
                       src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
                     ></img>
                   )}
@@ -295,7 +298,11 @@ const PreviewProduct = () => {
 
                   {/* <button>{item.price - 20}</button> */}
 
-                  <span> Send seller a message</span>
+                  <label htmlFor="preview-product-message-input">
+                    {" "}
+                    Send seller a message
+                  </label>
+
                   <input
                     className="preview-product-message-input"
                     type="text"

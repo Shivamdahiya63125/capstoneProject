@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 // const bcrypt = require("bcryptjs");
-
+const cloudinary = require("../helper/imageUpload");
 const fs = require("fs");
 const User = require("../models/userModel");
 const userRouter = require("../routes/userRoutes");
@@ -113,24 +113,25 @@ const generateToken = (id) => {
 // UPLOADING AVATAR
 
 const uploadAvatar = async (req, res) => {
-  // console.log(req.body._id);
-  // console.log(`file : ${JSON.stringify(req.file)}`);
-
-  // console.log("pathhhh");
   const jsonFile = JSON.parse(JSON.stringify(req.file));
-  // let user = localStorage.getItem("user");
-  // console.log(user);
-  // console.log(jsonFile);
 
   const dbUser = await User.findOne({ _id: req.body._id });
-  // console.log(dbUser);
 
   const query = { _id: req.body._id };
 
+  const cloudinaryImage = await cloudinary.uploader.upload(req.file.path, {
+    public_id: `${req.body._id}_user`,
+    width: 700,
+    height: 500,
+    crop: "fill",
+  });
+
   var data = {
     // avatar: { data: req.file.filename, ContentType: "image/jpg" },
-    avatarString: jsonFile.filename,
+    avatarString: cloudinaryImage.secure_url,
   };
+
+  console.log(cloudinaryImage);
 
   User.updateOne(query, data, async (err, userData) => {
     if (err) {

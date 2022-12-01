@@ -15,7 +15,7 @@ const UserProfileSidebar = () => {
   const uploadAvatar = async (e) => {
     e.preventDefault();
     // console.log(avatarPath);
-
+    console.log("upladoign");
     const formData = new FormData();
 
     formData.append("avatar", avatarPath);
@@ -59,9 +59,15 @@ const UserProfileSidebar = () => {
             <div className="image-section">
               {globalUser.avatarString ? (
                 <>
-                  <img
+                  {/* <img
                     id="avtar-image"
                     src={require(`../../Static/uploads/${globalUser.avatarString}`)}
+                  ></img> */}
+
+                  <img
+                    id="avtar-image"
+                    alt="user-profile-photo"
+                    src={globalUser.avatarString}
                   ></img>
 
                   <button
