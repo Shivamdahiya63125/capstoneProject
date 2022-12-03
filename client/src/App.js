@@ -39,7 +39,7 @@ function App() {
         <div className="App">
           <Switch>
             <Route exact path="/">
-              <Login></Login>
+              <Home></Home>
             </Route>
             <Route exact path="/register">
               {/* IF THE USER IS LOGGED IN, YOU CAN NOT GO TO THE SIGNIN OR REGISTER PAGE */}
