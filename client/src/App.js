@@ -21,6 +21,7 @@ import SellingPage from "./Pages/SellingPage/SellingPage";
 import Messenger from "./Pages/Messenger/Messenger";
 import DraftedItems from "./Pages/DraftedItems/DraftedItems";
 import Favorites from "./Pages/Favorites/Favorites";
+import AboutUs from "./Pages/AboutUs/AboutUs";
 
 function App() {
   const [isUserLoggedIn, setisUserLoggedIn] = useState(
@@ -38,7 +39,7 @@ function App() {
         <div className="App">
           <Switch>
             <Route exact path="/">
-              <Home></Home>
+              <Login></Login>
             </Route>
             <Route exact path="/register">
               {/* IF THE USER IS LOGGED IN, YOU CAN NOT GO TO THE SIGNIN OR REGISTER PAGE */}
@@ -57,6 +58,9 @@ function App() {
                 setisUserLoggedIn={setisUserLoggedIn}
                 isUserLoggedIn={isUserLoggedIn}
               ></Login>
+            </Route>
+            <Route exact path="/aboutus">
+              <AboutUs></AboutUs>
             </Route>
 
             <Route exact path="/userprofile">
