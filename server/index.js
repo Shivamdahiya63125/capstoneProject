@@ -1,4 +1,5 @@
 const express = require("express");
+const https = require("http");
 const app = express();
 const mongoose = require("mongoose");
 var bodyParser = require("body-parser");
@@ -49,6 +50,8 @@ app.use("/listing", require("./routes/listingRoutes"));
 app.use("/conversation", require("./routes/conversationsRoutes"));
 app.use("/messages", require("./routes/messagesRoutes"));
 
-app.listen(port, () => {
-  console.log(`Server is running on port 8080`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running on port 8080`);
+// });
+
+https.createServer({ rejectUnauthorized: false }, app).listen(8080);

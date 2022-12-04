@@ -1,19 +1,4 @@
 
-
-
-body {
-    background-color: #E2E6EB;
-    font-family: 'Montserrat',
-        sans-serif;
-    width: 100vw;
-    min-height: 100vh;
-    color: #1B1C34;
-    display: flex;
-    align-items: center;
-}
-
-
-
 .container {
     max-width: 100vw;
     padding: 0 2rem;
