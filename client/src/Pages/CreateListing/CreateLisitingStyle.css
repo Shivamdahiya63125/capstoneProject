@@ -1,6 +1,7 @@
 .create-listing-container{
     display: flex;
-    height: 85vh;
+    height:auto;
+    height: 120vh   ;
     padding-top: 3rem;
     /* background-color: red; */
     width: 80vw;
