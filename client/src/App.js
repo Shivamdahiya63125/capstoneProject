@@ -132,6 +132,24 @@ function App() {
             <Route exact path="/edit/:draftId">
               <CreateListing edit={true}></CreateListing>
             </Route>
+
+            <Route
+              path="/projectlink/gitlink"
+              component={() => {
+                window.location.href =
+                  "https://github.com/Shivamdahiya63125/capstoneProject";
+                return null;
+              }}
+            />
+
+            <Route
+              path="/projectlink/livelink"
+              component={() => {
+                window.location.href =
+                  "https://capstone-client-b1q59y1a6-shivamdahiya63125.vercel.app/";
+                return null;
+              }}
+            />
           </Switch>
         </div>
       </UserProvider>

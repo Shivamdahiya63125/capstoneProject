@@ -56,6 +56,11 @@ background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 
 .preview-product-save-button{
     font-size: 1.6rem;
+    /* background-color: red; */
+}
+
+.fav-product{
+    /* background-color: red; */
 }
 
 .preview-product-content-title{

@@ -13,6 +13,19 @@
     margin: 5% 0;
 }
 
+
+.aboutus-link{
+    font-size: 1.25rem;
+    font-weight: bold;
+    align-items: center;
+    width: 100vw;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+
+
 .card {
     overflow: hidden;
     padding: 20px;
@@ -24,8 +37,9 @@
 
 
 .card_img img {
-    width: 100%;
-    height: auto;
+    width: 300px;
+    object-fit: contain;
+    height: 300px;
     border-radius: 20px;
 }
 

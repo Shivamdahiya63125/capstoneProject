@@ -192,7 +192,10 @@ const PreviewProduct = () => {
                 >
                   {" "}
                   {/* using react-icon for icons */}
-                  <MdFavorite></MdFavorite>{" "}
+                  <MdFavorite
+                    class="fav-product"
+                    style={{ color: "red" }}
+                  ></MdFavorite>{" "}
                 </span>
               ) : (
                 <span
