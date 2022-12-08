@@ -22,6 +22,7 @@ import Messenger from "./Pages/Messenger/Messenger";
 import DraftedItems from "./Pages/DraftedItems/DraftedItems";
 import Favorites from "./Pages/Favorites/Favorites";
 import AboutUs from "./Pages/AboutUs/AboutUs";
+import StripeContainer from "./Pages/Stripe/StripeContainer";
 
 function App() {
   const [isUserLoggedIn, setisUserLoggedIn] = useState(
@@ -131,6 +132,10 @@ function App() {
             {/* edit product */}
             <Route exact path="/edit/:draftId">
               <CreateListing edit={true}></CreateListing>
+            </Route>
+
+            <Route exact path="/buy/product/stripeForm">
+              <StripeContainer></StripeContainer>
             </Route>
 
             <Route

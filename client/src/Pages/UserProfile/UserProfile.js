@@ -11,6 +11,7 @@ const UserProfile = () => {
   const [globalUser, setglobalUser] = useContext(UserContext);
   const [userListing, setuserListing] = useState(null);
   const [isDisplayMobileMenu, setisDisplayMobileMenu] = useState(false);
+  const [purchasedItems, setpurchasedItems] = useState();
 
   const getUserListing = async () => {
     const requestOptions = {
@@ -26,7 +27,10 @@ const UserProfile = () => {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         setuserListing(data.response.listedProducts);
+        setpurchasedItems(data.purchasedItems.purchasedItems);
+        console.log(purchasedItems);
       });
   };
   useEffect(() => {
@@ -87,7 +91,14 @@ const UserProfile = () => {
               </span>
             </div>
 
-            <span>You have not bought anything yet.</span>
+            <span>
+              {" "}
+              {purchasedItems
+                ? purchasedItems.map((product) => {
+                    return <ProductCard item={product}></ProductCard>;
+                  })
+                : "You do not have any Purchases"}
+            </span>
           </div>
         </div>
       </div>

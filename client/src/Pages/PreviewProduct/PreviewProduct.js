@@ -47,10 +47,15 @@ const PreviewProduct = () => {
       .then((data) => {
         console.log(data);
         setitem(data.item);
-        if (data.conversation.length > 0) {
-          setopenChatOption(true);
-          setconversation(data.conversation[0]);
+        if (globalUser === null) {
+          return;
+        } else {
+          if (data.conversation.length > 0) {
+            setopenChatOption(true);
+            setconversation(data.conversation[0]);
+          }
         }
+
         if (data.isFav) {
           setisFav(true);
         }
@@ -109,7 +114,11 @@ const PreviewProduct = () => {
       crossDomain: true,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: globalUser._id, productId: item._id }),
+      body: JSON.stringify({
+        userId: globalUser._id,
+        productId: item._id,
+        product: item,
+      }),
     };
 
     try {
@@ -325,6 +334,19 @@ const PreviewProduct = () => {
                 </div>
               ) : null
             ) : null}
+            <div>
+              <button className="preview-product-send-message-button">
+                <Link
+                  to={{
+                    pathname: "/buy/product/stripeForm",
+                    state: { product: item, userId: globalUser._id },
+                  }}
+                >
+                  {" "}
+                  Buy Now{" "}
+                </Link>
+              </button>
+            </div>
           </div>
         </div>
       ) : (

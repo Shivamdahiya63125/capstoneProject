@@ -32,6 +32,12 @@ const userSchema = mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "listItem",
     },
+
+    purchasedItems: {
+      default: [],
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "listItem",
+    },
   },
   {
     // it will automatically gives us the createdAt and updatedAt Field.

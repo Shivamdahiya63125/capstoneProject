@@ -173,10 +173,18 @@ const getUserListing = async (req, res) => {
     const listingProducts = await User.findOne({ _id: req.params.userId })
       .select("listedProducts")
       .populate("listedProducts");
-    // console.log(listingProducts);
+    const purchasedItems = await User.findOne({ _id: req.params.userId })
+      .select("purchasedItems")
+      .populate("purchasedItems");
+
+    console.log(listingProducts);
 
     if (listingProducts) {
-      res.status(200).json({ success: true, response: listingProducts });
+      res.status(200).json({
+        success: true,
+        response: listingProducts,
+        purchasedItems: purchasedItems,
+      });
     } else {
       res.status(400).json({ success: false, error: "Not found" });
     }
