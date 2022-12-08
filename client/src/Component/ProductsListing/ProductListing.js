@@ -11,7 +11,10 @@ const ProductListing = () => {
       mode: "cors",
       method: "GET",
     };
-    await fetch("http://localhost:8080/listing/getalllisting", requestOptions)
+    await fetch(
+      "http://13.58.147.80:8080/listing/getalllisting",
+      requestOptions
+    )
       .then((response) => {
         return response.json();
       })
